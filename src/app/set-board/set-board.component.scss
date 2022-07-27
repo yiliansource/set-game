@@ -5,6 +5,29 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .statistics {
+    margin-bottom: 40px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 40px;
+
+    user-select: none;
+
+    & > div {
+      font-size: 20px;
+
+      & > ng-icon {
+        vertical-align: bottom;
+      }
+
+      & > span {
+        margin-left: 6px;
+      }
+    }
+  }
+
   .controls {
     margin-top: 40px;
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { timer } from 'rxjs';
 import { SetCardFactoryService } from '../set-card-factory.service';
 import { SetCard } from '../set-card/set-card';
 import { SetSolverService } from '../set-solver.service';
@@ -13,17 +14,31 @@ export class SetBoardComponent implements OnInit {
   cards: SetCard[] = [];
   selected: number[] = [];
   hasAnySet: boolean = false;
+  score: number = 0;
+  time: number = 0;
+
+  get formattedTime() {
+    return (
+      Math.floor(this.time / 60) +
+      ':' +
+      Math.floor(this.time % 60)
+        .toString()
+        .padStart(2, '0')
+    );
+  }
 
   constructor(
     private cardFactory: SetCardFactoryService,
     private setValidator: SetValidatorService,
     private setSolver: SetSolverService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.cards = this.cardFactory.getRandomCards(12);
     this.validateBoard();
-  }
 
-  ngOnInit(): void {}
+    timer(1000, 1000).subscribe((val) => (this.time = val));
+  }
 
   isCardSelected(index: number): boolean {
     return this.selected.includes(index);
@@ -39,10 +54,7 @@ export class SetBoardComponent implements OnInit {
         if (
           this.setValidator.validate(this.selected.map((i) => this.cards[i]))
         ) {
-          this.selected.forEach(
-            (i) => (this.cards[i] = this.cardFactory.getRandomCard())
-          );
-          this.validateBoard();
+          this.collectSet(this.selected);
         }
 
         this.selected.splice(0, 3);
@@ -50,7 +62,15 @@ export class SetBoardComponent implements OnInit {
     }
   }
 
-  giveHint() {
+  collectSet(indices: number[]): void {
+    this.score++;
+    for (const i of indices) {
+      this.cards[i] = this.cardFactory.getRandomCard();
+    }
+    this.validateBoard();
+  }
+
+  giveHint(): void {
     const setIndices = this.setSolver.findSet(this.cards);
 
     if (setIndices) {

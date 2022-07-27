@@ -12,6 +12,8 @@ import { SetCardComponent } from './set-card/set-card.component';
 import {
   BootstrapLightbulbFill,
   BootstrapDice5Fill,
+  BootstrapClockFill,
+  BootstrapCircleFill,
 } from '@ng-icons/bootstrap-icons';
 
 @NgModule({
@@ -20,7 +22,12 @@ import {
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    NgIconsModule.withIcons({ BootstrapLightbulbFill, BootstrapDice5Fill }),
+    NgIconsModule.withIcons({
+      BootstrapLightbulbFill,
+      BootstrapDice5Fill,
+      BootstrapClockFill,
+      BootstrapCircleFill,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

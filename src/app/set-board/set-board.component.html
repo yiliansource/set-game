@@ -1,3 +1,14 @@
+<div class="statistics">
+  <div>
+    <ng-icon name="bootstrap-clock-fill"></ng-icon>
+    <span>{{ formattedTime }}</span>
+  </div>
+  <div>
+    <ng-icon name="bootstrap-circle-fill"></ng-icon>
+    <span>{{ score }}</span>
+  </div>
+</div>
+
 <div class="board-container">
   <app-set-card
     *ngFor="let card of cards; let i = index"

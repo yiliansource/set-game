@@ -8,17 +8,19 @@ import { SetValidatorService } from './set-validator.service';
 export class SetSolverService {
   constructor(private setValidator: SetValidatorService) {}
 
-  findSet(cards: SetCard[]) {
+  findSet(cards: SetCard[]): number[] | null {
+    return this.findSets(cards).next().value || null;
+  }
+
+  *findSets(cards: SetCard[]) {
     for (let i = 0; i < cards.length; i++)
       for (let j = 0; j < cards.length; j++)
         for (let k = 0; k < cards.length; k++) {
           if (i != j && j != k && k != i) {
             if (this.setValidator.validate([cards[i], cards[j], cards[k]])) {
-              return [i, j, k];
+              yield [i, j, k];
             }
           }
         }
-
-    return null;
   }
 }
