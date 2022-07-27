@@ -1,0 +1,17 @@
+<div class="board-container">
+  <app-set-card
+    *ngFor="let card of cards; let i = index"
+    [card]="card"
+    [selected]="isCardSelected(i)"
+    (click)="toggleSelection(i)"
+  ></app-set-card>
+</div>
+
+<div class="controls">
+  <button (click)="giveHint()" [disabled]="!hasAnySet">
+    <ng-icon name="bootstrap-lightbulb-fill"></ng-icon>
+  </button>
+  <button (click)="randomize()">
+    <ng-icon name="bootstrap-dice5-fill"></ng-icon>
+  </button>
+</div>
