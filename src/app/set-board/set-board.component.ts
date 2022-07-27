@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { timer } from 'rxjs';
+import { interval } from 'rxjs';
 import { SetCardFactoryService } from '../set-card-factory.service';
 import { SetCard } from '../set-card/set-card';
 import { SetSolverService } from '../set-solver.service';
@@ -37,7 +37,7 @@ export class SetBoardComponent implements OnInit {
     this.cards = this.cardFactory.getRandomCards(12);
     this.validateBoard();
 
-    timer(1000, 1000).subscribe((val) => (this.time = val));
+    interval(1000).subscribe((val) => (this.time = val));
   }
 
   isCardSelected(index: number): boolean {
