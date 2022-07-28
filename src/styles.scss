@@ -1,8 +1,200 @@
-@import "~reset.css";
-
 body {
-  color: white;
-  background-color: #314a60;
+    color: white;
+    background-color: #314a60;
 
-  font-family: Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.set-app {
+    .board {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(3, 220px);
+        grid-template-rows: repeat(4, 130px);
+    }
+
+    .statistics {
+        margin-bottom: 40px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 40px;
+
+        user-select: none;
+
+        & > div {
+            font-size: 20px;
+        }
+
+        .total-sets {
+            margin: auto auto auto 0;
+        }
+        .time,
+        .score {
+            & > .icon {
+                vertical-align: bottom;
+            }
+            & > span {
+                margin-left: 6px;
+            }
+        }
+    }
+
+    .controls {
+        margin-top: 40px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
+
+        button {
+            appearance: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+
+            display: flex;
+            width: 50px;
+            height: 50px;
+            color: white;
+            background-color: #5884ac;
+            font-size: 20px;
+            border-radius: 50%;
+
+            transition: background-color 0.2s;
+
+            & > * {
+                margin: auto;
+            }
+
+            &:disabled {
+                cursor: default;
+                opacity: 0.5;
+            }
+
+            &:hover:not(:disabled) {
+                background-color: #6ba1d2;
+            }
+        }
+    }
+
+    @media screen and (max-width: 640px) {
+        .board {
+            gap: 8px;
+            grid-template-columns: repeat(4, 80px);
+            grid-template-rows: repeat(3, 120px);
+        }
+        .statistics {
+            & > div {
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+.set-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+
+    height: 90px;
+    width: 180px;
+
+    transition: opacity 0.2s, transform 0.2s;
+
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+    &.selected {
+        outline: yellow solid 2px;
+        outline-offset: 2px;
+    }
+
+    .symbols {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: center;
+        gap: 12px;
+        height: 100%;
+
+        .symbol {
+            position: relative;
+            flex-basis: 40px;
+            box-sizing: border-box;
+
+            svg {
+                overflow: visible;
+                position: absolute;
+                height: 100%;
+                width: 100%;
+
+                g {
+                    .fill {
+                        stroke: none;
+                    }
+                    .outline {
+                        fill: none;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 640px) {
+        padding: 20px;
+        height: 40px;
+        width: 80px;
+
+        transform: rotate(90deg) translateY(-100%);
+        transform-origin: top left;
+
+        &:hover {
+            transform: rotate(90deg) translateY(-100%);
+        }
+
+        .symbols {
+            gap: 0;
+            .symbol {
+                flex-basis: 28px !important;
+            }
+        }
+    }
+}
+
+.animate-move {
+    &-enter {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    &-exit {
+        opacity: 1;
+        transform: translate(0px);
+    }
+    &-enter-active {
+        opacity: 1;
+        transform: translate(0px);
+    }
+    &-exit-active {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    &-enter-active,
+    &-exit-active {
+        transition: opacity 200ms, transform 200ms;
+    }
 }
